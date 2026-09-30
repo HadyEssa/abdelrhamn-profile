@@ -30,7 +30,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Abdelrhman Sadat — GRC Manager & Information Security Lead",
   description:
-    "Professional portfolio and Security Control Room of Abdelrhman Sadat — GRC Manager and Information Security Lead specializing in Governance, Risk & Compliance, SOC Operations, and Offensive Security.",
+    "Portfolio of Abdelrhman Sadat — GRC Manager and Information Security Lead specializing in Governance, Risk & Compliance, SOC Operations, and Offensive Security.",
   keywords: [
     "Abdelrhman Sadat",
     "GRC Manager",
