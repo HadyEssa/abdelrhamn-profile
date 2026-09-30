@@ -1,0 +1,676 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* Surfaces & Foundations (Warm Neutral Dark) */
+    --bg-main: #080a09;
+    --bg-surface: #101311;
+    --bg-surface-raised: #151916;
+    --bg-surface-subtle: #1c221e;
+
+    /* Text & Foreground */
+    --text-primary: #f1f3ef;
+    --text-secondary: #a2aaa4;
+    --text-muted: #68716b;
+
+    /* Muted Security Green Accents (Used Sparingly: <10%) */
+    --accent-green-muted: #8fbf9f;
+    --accent-green-light: #b8e5c4;
+    --accent-green-soft: rgba(143, 191, 159, 0.1);
+    --accent-green-border: rgba(143, 191, 159, 0.25);
+
+    /* Neutral Borders & Dividers */
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-medium: rgba(255, 255, 255, 0.16);
+    --border-focus: #8fbf9f;
+
+    /* Compatibility aliases (referenced by layout / legacy shell) */
+    --bg-void: var(--bg-main);
+    --bg-base: var(--bg-main);
+    --accent-green-primary: var(--accent-green-muted);
+    --accent-green-subtle: var(--accent-green-soft);
+    --accent-green-hover: var(--accent-green-light);
+    --accent-green-dim: var(--accent-green-muted);
+    --border-accent: var(--accent-green-border);
+    --text-inverted: var(--bg-main);
+    --accent-cyan: var(--accent-green-light);
+    --accent-amber: #c19a6b;
+
+    /* Tag surfaces (theme-aware) */
+    --tag-bg: rgba(0, 0, 0, 0.05);
+    --tag-bg-hover: rgba(0, 0, 0, 0.1);
+
+    /* Typography */
+    --font-primary: "Space Grotesk", sans-serif;
+    --font-secondary: "Inter", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+  }
+
+  * {
+    border-color: var(--border-subtle);
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family:
+      var(--font-secondary),
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background-color: rgba(143, 191, 159, 0.25);
+    color: #f1f3ef;
+  }
+}
+
+/* Custom Typography Utilities */
+.font-display {
+  font-family: var(--font-primary);
+  font-weight: 600;
+}
+.font-mono-tech {
+  font-family: var(--font-mono);
+}
+
+/* Subtle, refined card surface */
+.portfolio-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+.portfolio-card:hover {
+  border-color: var(--border-medium);
+  background-color: var(--bg-surface-raised);
+}
+
+/* Accessible Focus Ring */
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Surface and elevation utilities */
+.surface {
+  background-color: var(--bg-surface);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid var(--border-subtle);
+}
+.elevated {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Selected Work – editorial case study styles                               */
+/* -------------------------------------------------------------------------- */
+.case-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 3.5rem;
+}
+@media (min-width: 768px) {
+  .case-section.row {
+    flex-direction: row;
+  }
+  .case-section.row-reverse {
+    flex-direction: row-reverse;
+  }
+  .case-text,
+  .case-visual {
+    flex: 1;
+  }
+}
+
+/* Visual block – simple textured surface */
+.case-visual {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: var(--bg-surface);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+.case-visual.pci {
+  background: linear-gradient(
+    135deg,
+    #f9faf8 25%,
+    #e8ebe6 25%,
+    #e8ebe6 50%,
+    #f9faf8 50%,
+    #f9faf8 75%,
+    #e8ebe6 75%,
+    #e8ebe6 100%
+  );
+  background-size: 40px 40px;
+}
+.case-visual.archer {
+  background: repeating-linear-gradient(
+    45deg,
+    #fafafa,
+    #fafafa 10px,
+    #f0f0f0 10px,
+    #f0f0f0 20px
+  );
+  border: 2px solid var(--accent-green-muted);
+}
+.case-visual.vuln {
+  background: radial-gradient(circle at 50% 50%, #eaeaea, #d4d4d4);
+  filter: contrast(115%);
+  border: 2px solid var(--accent-green);
+}
+
+/* Meta tags – small inline descriptors */
+.meta-tag {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-family: var(--font-primary);
+  padding: 0.2rem 0.5rem;
+  margin: 0.2rem 0.1rem;
+  background: var(--tag-bg);
+  border-radius: 4px;
+  color: var(--text-muted);
+}
+
+/* Outcome big number and label */
+.outcome-number {
+  font-family: var(--font-primary);
+  font-size: 6rem;
+  line-height: 1;
+  color: var(--accent-green-muted);
+}
+.outcome-label {
+  font-family: var(--font-primary);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  letter-spacing: 0.05em;
+}
+
+/* Section heading */
+.section-header {
+  font-family: var(--font-primary);
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+/* Project index navigation */
+.project-index {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+.project-index a {
+  position: relative;
+  text-decoration: none;
+}
+.project-index a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--accent-green-muted);
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Expertise section styles */
+/* -------------------------------------------------------------------------- */
+.expertise-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+@media (min-width: 768px) {
+  .expertise-grid {
+    flex-direction: row;
+    gap: 3rem;
+  }
+  .primary-column {
+    flex: 2;
+  }
+  .secondary-column {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+.group {
+  margin-bottom: 2rem;
+}
+.group-title {
+  font-family: var(--font-primary);
+  font-size: 1.75rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+}
+.competency-item {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-family: var(--font-primary);
+  padding: 0.2rem 0.5rem;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  color: var(--text-muted);
+  margin: 0.2rem 0.1rem;
+}
+
+/* Skill tag styling – used in Expertise component */
+.skill-tag {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-family: var(--font-primary);
+  padding: 0.2rem 0.5rem;
+  margin: 0.2rem 0.1rem;
+  background: var(--tag-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  color: var(--text-muted); /* neutral default */
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+.skill-tag:hover {
+  background: var(--tag-bg-hover);
+  border-color: var(--border-medium);
+}
+/* Skill-specific accent colors */
+.skill-team-leadership {
+  color: #8fa78f;
+  border-color: #8fa78f;
+}
+.skill-stakeholder-management {
+  color: #7fafaf;
+  border-color: #7fafaf;
+}
+.skill-strategic-planning {
+  color: #9a8fbf;
+  border-color: #9a8fbf;
+}
+.skill-audit-management {
+  color: #c19a6b;
+  border-color: #c19a6b;
+}
+.skill-executive-reporting {
+  color: #7a9ebe;
+  border-color: #7a9ebe;
+}
+.skill-regulatory-reporting {
+  color: #6ebcf0;
+  border-color: #6ebcf0;
+}
+.skill-metrics--kpis {
+  color: #8fb8a5;
+  border-color: #8fb8a5;
+}
+.skill-risk-assessment {
+  color: #c19a6b;
+  border-color: #c19a6b;
+}
+.skill-risk-registers {
+  color: #8fa78f;
+  border-color: #8fa78f;
+}
+.skill-risk-quantification {
+  color: #7fafaf;
+  border-color: #7fafaf;
+}
+.skill-risk-appetite {
+  color: #9a8fbf;
+  border-color: #9a8fbf;
+}
+.skill-kri--kpi {
+  color: #c19a6b;
+  border-color: #c19a6b;
+}
+.skill-control-libraries {
+  color: #7a9ebe;
+  border-color: #7a9ebe;
+}
+.skill-risk-treatment {
+  color: #6ebcf0;
+  border-color: #6ebcf0;
+}
+.skill-third‑party-risk-management {
+  color: #8fb8a5;
+  border-color: #8fb8a5;
+}
+.skill-nist-csf {
+  color: #8fa78f;
+  border-color: #8fa78f;
+}
+.skill-pci-dss {
+  color: #7fafaf;
+  border-color: #7fafaf;
+}
+.skill-iso-27001 {
+  color: #9a8fbf;
+  border-color: #9a8fbf;
+}
+.skill-iso-27701 {
+  color: #c19a6b;
+  border-color: #c19a6b;
+}
+.skill-gdpr {
+  color: #7a9ebe;
+  border-color: #7a9ebe;
+}
+
+.skill-soc-2 {
+  color: #6ebcf0;
+  border-color: #6ebcf0;
+}
+.skill-cbe {
+  color: #8fb8a5;
+  border-color: #8fb8a5;
+}
+.skill-sama {
+  color: #8fa78f;
+  border-color: #8fa78f;
+}
+.skill-nca {
+  color: #7fafaf;
+  border-color: #7fafaf;
+}
+.skill-fra {
+  color: #9a8fbf;
+  border-color: #9a8fbf;
+}
+.skill-business-continuity {
+  color: #c19a6b;
+  border-color: #c19a6b;
+}
+.skill-internal--external-audit {
+  color: #7a9ebe;
+  border-color: #7a9ebe;
+}
+.skill-control-mapping {
+  color: #6ebcf0;
+  border-color: #6ebcf0;
+}
+.skill-vulnerability-management {
+  color: #8fb8a5;
+  border-color: #8fb8a5;
+}
+.skill-policy--procedure-development {
+  color: #8fa78f;
+  border-color: #8fa78f;
+}
+.skill-regulatory-assessments {
+  color: #7fafaf;
+  border-color: #7fafaf;
+}
+.skill-change-management {
+  color: #9a8fbf;
+  border-color: #9a8fbf;
+}
+.skill-incident-response {
+  color: #8fa78f;
+  border-color: #8fa78f;
+}
+.skill-threat-intelligence {
+  color: #7fafaf;
+  border-color: #7fafaf;
+}
+.skill-web-penetration-testing {
+  color: #9a8fbf;
+  border-color: #9a8fbf;
+}
+.skill-mobile-penetration-testing {
+  color: #c19a6b;
+  border-color: #c19a6b;
+}
+.skill-network-penetration-testing {
+  color: #7a9ebe;
+  border-color: #7a9ebe;
+}
+.skill-vulnerability-assessment {
+  color: #6ebcf0;
+  border-color: #6ebcf0;
+}
+.skill-risk‑based-remediation {
+  color: #8fb8a5;
+  border-color: #8fb8a5;
+}
+.skill-qualys-vmdr {
+  color: #3fc380;
+  border-color: #3fc380;
+}
+.skill-python {
+  color: #8fa78f;
+  border-color: #8fa78f;
+}
+.skill-java {
+  color: #7fafaf;
+  border-color: #7fafaf;
+}
+.skill-c {
+  color: #9a8fbf;
+  border-color: #9a8fbf;
+}
+.skill-windows-server {
+  color: #c19a6b;
+  border-color: #c19a6b;
+}
+.skill-active-directory {
+  color: #7a9ebe;
+  border-color: #7a9ebe;
+}
+.skill-linux {
+  color: #6ebcf0;
+  border-color: #6ebcf0;
+}
+/* Brand-specific accent classes */
+:root {
+  --brand-qualys: #66ff99; /* Qualys green (lighter) */
+  --brand-archer: #66b2ff; /* Archer blue (lighter) */
+  --brand-servicenow: #88e0ff; /* ServiceNow cyan (lighter) */
+  --brand-qradar: #4abfff; /* QRadar blue (lighter) */
+  --brand-splunk: #ff453a; /* Splunk red (high contrast) */
+  --brand-wazuh: #66ccff; /* Wazuh cyan (lighter) */
+  --brand-cortex: #5aa9ff; /* Cortex blue (lighter) */
+  --brand-trellix: #ff8a5c; /* Trellix orange (lighter) */
+}
+.brand-qualys {
+  color: var(--brand-qualys);
+}
+.brand-archer {
+  color: var(--brand-archer);
+}
+.brand-servicenow {
+  color: var(--brand-servicenow);
+}
+.brand-qradar {
+  color: var(--brand-qradar);
+}
+.brand-splunk {
+  color: var(--brand-splunk);
+}
+.brand-wazuh {
+  color: var(--brand-wazuh);
+}
+.brand-cortex {
+  color: var(--brand-cortex);
+}
+.brand-trellix {
+  color: var(--brand-trellix);
+}
+
+/* Category accent colors */
+:root {
+  --cat-01: #8fa78f; /* muted sage */
+  --cat-02: #c19a6b; /* muted amber */
+  --cat-03: #7a9ebe; /* muted blue */
+  --cat-04: #9a8fbf; /* muted violet */
+  --cat-05: #7fafbf; /* muted cyan */
+  --cat-06: #7fafaf; /* muted teal */
+  --cat-07: #bf7f8f; /* muted coral */
+  --cat-08: #7f8fbf; /* muted indigo */
+}
+/* Category specific styling */
+.category-01 .category-number,
+.category-01 .category-title,
+.category-01 .category-header svg {
+  color: var(--cat-01);
+}
+.category-02 .category-number,
+.category-02 .category-title,
+.category-02 .category-header svg {
+  color: var(--cat-02);
+}
+.category-03 .category-number,
+.category-03 .category-title,
+.category-03 .category-header svg {
+  color: var(--cat-03);
+}
+.category-04 .category-number,
+.category-04 .category-title,
+.category-04 .category-header svg {
+  color: var(--cat-04);
+}
+.category-05 .category-number,
+.category-05 .category-title,
+.category-05 .category-header svg {
+  color: var(--cat-05);
+}
+.category-06 .category-number,
+.category-06 .category-title,
+.category-06 .category-header svg {
+  color: var(--cat-06);
+}
+.category-07 .category-number,
+.category-07 .category-title,
+.category-07 .category-header svg {
+  color: var(--cat-07);
+}
+.category-08 .category-number,
+.category-08 .category-title,
+.category-08 .category-header svg {
+  color: var(--cat-08);
+}
+/* Subtle hover/focus for categories */
+.category-row:hover .category-header {
+  opacity: 0.92;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Light theme — warm editorial equivalent of the dark identity            */
+/* -------------------------------------------------------------------------- */
+[data-theme="light"] {
+  --bg-main: #faf9f6;
+  --bg-surface: #ffffff;
+  --bg-surface-raised: #f1efe8;
+  --bg-surface-subtle: #e8e4d9;
+
+  --text-primary: #161a17;
+  --text-secondary: #4c554f;
+  --text-muted: #7c857f;
+
+  --accent-green-muted: #2f6b4a;
+  --accent-green-light: #1e5b40;
+  --accent-green-soft: rgba(47, 107, 74, 0.1);
+  --accent-green-border: rgba(47, 107, 74, 0.3);
+
+  --border-subtle: rgba(22, 26, 23, 0.1);
+  --border-medium: rgba(22, 26, 23, 0.2);
+  --border-focus: #2f6b4a;
+
+  --bg-void: var(--bg-main);
+  --bg-base: var(--bg-main);
+  --accent-green-primary: var(--accent-green-muted);
+  --accent-green-subtle: var(--accent-green-soft);
+  --accent-green-hover: #26593d;
+  --accent-green-dim: var(--accent-green-muted);
+  --border-accent: var(--accent-green-border);
+  --text-inverted: #ffffff;
+  --accent-cyan: #2f6b72;
+  --accent-amber: #9a6f3f;
+
+  --tag-bg: rgba(22, 26, 23, 0.05);
+  --tag-bg-hover: rgba(22, 26, 23, 0.09);
+}
+
+[data-theme="light"] body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+}
+
+[data-theme="light"] ::selection {
+  background-color: rgba(47, 107, 74, 0.18);
+  color: #161a17;
+}
+
+[data-theme="light"] .portfolio-card:hover {
+  box-shadow: 0 6px 20px rgba(22, 26, 23, 0.08);
+}
+
+[data-theme="light"] .meta-tag,
+[data-theme="light"] .skill-tag,
+[data-theme="light"] .competency-item {
+  background: var(--tag-bg);
+}
+
+[data-theme="light"] .skill-tag:hover {
+  background: var(--tag-bg-hover);
+}
+
+/* -------------------------------------------------------------------------- */
+/*  RTL — logical-property friendly adjustments                               */
+/* -------------------------------------------------------------------------- */
+html[dir="rtl"] body {
+  overflow-x: hidden;
+}
+
+html[dir="rtl"] .font-display {
+  letter-spacing: 0;
+}
+
+/* Arabic has no uppercase; keep layout stable without forced transform */
+html[dir="rtl"] .uppercase {
+  text-transform: none;
+}
+
+html[dir="rtl"] .tracking-widest,
+html[dir="rtl"] .tracking-wider {
+  letter-spacing: 0.02em;
+}
+
+/* Case-study rows mirror naturally via flex + dir; keep gap balanced */
+html[dir="rtl"] .case-section.row,
+html[dir="rtl"] .case-section.row-reverse {
+  direction: rtl;
+}
+
+/* Prevent horizontal overflow from wide outcome type in RTL */
+html[dir="rtl"] .outcome-number {
+  line-height: 1.1;
+  overflow-wrap: break-word;
+}
+
+html[dir="rtl"] img {
+  direction: ltr;
+}
